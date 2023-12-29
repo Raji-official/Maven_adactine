@@ -40,12 +40,7 @@
     <version>3.141.59</version>
 </dependency>
 
-  	<dependency>
-  		<groupId>MavenProject</groupId>
-  		<artifactId>MakeMyTrip</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	
+    	
   	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 <dependency>
     <groupId>org.apache.poi</groupId>
@@ -72,6 +67,7 @@
   </dependencies>
 
   <build>
+	  
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
