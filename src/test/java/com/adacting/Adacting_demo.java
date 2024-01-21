@@ -1,10 +1,12 @@
 package com.adacting;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -22,12 +24,15 @@ public class Adacting_demo {
 		driver.get("http://adactinhotelapp.com/index.php");
 
 	driver.findElement(By.xpath("//input[@id='username']")).sendKeys("rajfernanto");
-	driver.findElement(By.xpath("//input[@id='password']")).sendKeys("rajfernanto764");
+	driver.findElement(By.xpath("//input[@id='password']")).sendKeys("TC02CG");
 	driver.findElement(By.xpath("//input[@id='login']")).click();
 
 	//location
 	WebElement loc = driver.findElement(By.xpath("//select[@id='location']"));
 	Select location= new Select(loc);
+	List<WebElement> options = location.getOptions();	
+	int size = options.size();
+	System.out.println(size);
 	location.selectByIndex(2);
 
 

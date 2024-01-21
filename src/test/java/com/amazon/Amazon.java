@@ -57,11 +57,11 @@ public class Amazon {
 			System.out.println(text);
 			
 			
-			Actions actions=new Actions(driver);
-			
-			  WebElement findElement3 = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']//parent::div//parent::div//ancestor::header//following-sibling::div//div[@class='s-suggestion-container']//div[@aria-label='comic']"));
-			  
-			findElement3.click();
+//			Actions actions=new Actions(driver);
+//			
+//			  WebElement findElement3 = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']//parent::div//parent::div//ancestor::header//following-sibling::div//div[@class='s-suggestion-container']//div[@aria-label='comic']"));
+//			  
+//			findElement3.click();
 			driver.findElement(By.xpath("(//span[text()='Results']//parent::div//following::script//following::div//span[starts-with(text(), 'Superman')])")).click();
 			
 			Set<String> windowHandles = driver.getWindowHandles();

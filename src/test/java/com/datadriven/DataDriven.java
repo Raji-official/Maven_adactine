@@ -2,8 +2,11 @@ package com.datadriven;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -52,8 +55,8 @@ public class DataDriven {
 		Sheet sheet=w.getSheetAt(0);
 		
 		int lastRowNum = sheet.getLastRowNum();	
-		int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
-		System.out.println("no of header :" + physicalNumberOfRows);
+//		int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
+//		System.out.println("no of header :" + physicalNumberOfRows);
 		System.out.println("no of row :"+lastRowNum);
 		
 		short lastCellNum = sheet.getRow(0).getLastCellNum();
@@ -80,54 +83,67 @@ public class DataDriven {
 	  
 }
   
-//  
-//	private static void writedata(String excelpath,int rownumber ,int columnumber,String data) throws IOException {
-//		try {
-//			
-//	
-//		 File fi=new File(excelpath);
-//			FileInputStream fis=new FileInputStream(fi);
-//			Workbook w=new XSSFWorkbook(fis);
-//			Sheet sheet=w.getSheetAt(0);
-//			Row row = sheet.getRow(rownumber);
-//			Cell cell = row.getCell(columnumber,org.apache.poi.ss.usermodel.Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
-//	     
-//			
-//			if (cell==null) {
-//				row.createCell(columnumber);
-//				cell.setCellValue(data);
-//			}else {
-//				cell.setCellValue(data);
-//			}
-//			
-//			FileOutputStream out=new FileOutputStream(fi);
-//			w.write(out);
-//			w.close();
-//			
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-////			System.out.println("error");
-//			
-//		}
-//		   
-//		}
-//
-//
-//	
-//	
+//    WRITE DATA IN EXCEL 
+  
+  
+  
+  private static void writedata() throws Exception {
+	  
+	   File f = new File("E:\\RAJ-PROCESS JOB\\Book1.xlsx");
+
+       FileInputStream fis = new FileInputStream(f);
+       Workbook wb = new XSSFWorkbook(fis);
+
+       // Creating a new sheet named "WriteData"
+       Sheet sheet = wb.createSheet("WriteData-2");
+
+       String[] dd = {"name", "age", "location"};
+       String[] nameStrings = {"raji", "ranjith", "rajkumar"};
+       int[] ageStrings = {25, 28, 32};
+       String[] locStrings = {"chennai", "singapore", "poompuhar"};
+
+       // Writing header row
+       Row headerRow = sheet.createRow(0);
+       for (int i = 0; i < dd.length; i++) {
+           headerRow.createCell(i).setCellValue(dd[i]);
+       }
+
+       // Writing data rows
+       for (int j = 0; j < nameStrings.length; j++) {
+           Row dataRow = sheet.createRow(j + 1);
+           dataRow.createCell(0).setCellValue(nameStrings[j]);
+           dataRow.createCell(1).setCellValue(ageStrings[j]);
+           dataRow.createCell(2).setCellValue(locStrings[j]);
+       }
+
+       // Writing the changes to the file
+       FileOutputStream fos = new FileOutputStream(f);
+       wb.write(fos);
+
+       // Closing the streams
+       fos.close();
+       wb.close();
+
+       System.out.println("Write successfully");
+
+	}
+	
+
+
+
+  
+ 
 	
 	
 	
 	
-public static void main(String[] args) throws IOException {
+public static void main(String[] args) throws Exception {
 	
 	getsheetdata();
 	
 	excelalldataget();
-	
-	String excelpath=".\\Excel\\Book1.xlsx";
-//	writedata(excelpath, 4, 1, "kumar");
+
+writedata();
 	
 }
 }
