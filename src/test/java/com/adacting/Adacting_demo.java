@@ -3,126 +3,111 @@ package com.adacting;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.hssf.record.BookBoolRecord;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler;
 import org.openqa.selenium.support.ui.Select;
 
+import com.adactin.pom.Book_hotel;
+import com.adactin.pom.Login;
+import com.adactin.pom.Logout;
+import com.adactin.pom.Search_Hotel;
+import com.adactin.pom.Select_hotel;
+import com.baseclass.Base_Class;
+import com.sdp.Page_Object_Manager;
+
+public class Adacting_demo extends Base_Class {
 
 
-public class Adacting_demo {
+//	public static Page_Object_Manager pom=new Page_Object_Manager(driver);
+ 
+	
+	public static void loginpage() throws Throwable {
+		 browerLaunch("chrome");
+		 Page_Object_Manager pom=new Page_Object_Manager(driver);
+		getUrl("http://adactinhotelapp.com/index.php");
+		sendText(pom.getInstanceli().getUsername(), "rajfernanto");
+		sendText(pom.getInstanceli().getPassword(), "TC02CG");
+		elementClick(pom.getInstanceli().getLogin());
+	}
 
-	public static void main(String[] args) throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver",
-				"./drivers/chromedriver.exe");
-		ChromeDriver driver = new ChromeDriver();
+	public static void search_hotel_page() throws Throwable {
+
+		 Page_Object_Manager pom=new Page_Object_Manager(driver);
+
+			selectValuesfromDD(pom.getInstance_Sh().getLocation(), "index", "2");
+			selectValuesfromDD(pom.getInstance_Sh().getHotelName(), "visibletext", "Hotel Creek");
+			selectValuesfromDD(pom.getInstance_Sh().getRoomtype(), "index", "2");
+			selectValuesfromDD(pom.getInstance_Sh().getNumber_of_room(), "index", "6");
+			sendText(pom.getInstance_Sh().getCheck_in_date(), "17/12/2023");
+			sendText(pom.getInstance_Sh().getCheck_out_date(), "18/12/2023");
+			selectValuesfromDD(pom.getInstance_Sh().getAdult_count(), "index", "2");
+			selectValuesfromDD(pom.getInstance_Sh().getChildren_count(), "visibletext", "2 - Two");
+			elementClick(pom.getInstance_Sh().getSubmit());
+		 
+
+	}
+	
+
+	public static void select_hotel_page() throws Throwable {
+
+		 Page_Object_Manager pom=new Page_Object_Manager(driver);
+
+		elementClick(pom.getInstance_select_ho().getRadiobutton());
+		elementClick(pom.getInstance_select_ho().getContinue_button());
+	}
+	
+
+	public static void book_hotel_page() throws Exception {
+
+		 Page_Object_Manager pom=new Page_Object_Manager(driver);
+
+		sendText(pom.getInstance_Book_h().getFirstname(), "raji");
+		sendText(pom.getInstance_Book_h().getLastname(), "anjappan");
+		sendText(pom.getInstance_Book_h().getAddress(), "4/262 meenavar colony middle street poompuhar");
+		sendText(pom.getInstance_Book_h().getCard_number(), "6754879034275876");
+
+		selectValuesfromDD(pom.getInstance_Book_h().getCard_type(), "index", "2");
+		selectValuesfromDD(pom.getInstance_Book_h().getCard_expiry_month(), "visibletext", "June");
+
+		selectValuesfromDD(pom.getInstance_Book_h().getCard_expiry_year(), "value", "2025");
+		sendText(pom.getInstance_Book_h().getCard_cvv_number(), "6789");
+		elementClick(pom.getInstance_Book_h().getBook_now());
+
+	}
+	
+	public static void logoutpage() throws Exception {
+		 Page_Object_Manager pom=new Page_Object_Manager(driver);
+
+		elementClick(pom.getInstance_LG().getLogout());
+		elementClick(pom.getInstance_LG().getClick_to_login_page());
+	}
+	
+
+	public static void main(String[] args) throws Throwable {
 		
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
-		driver.get("http://adactinhotelapp.com/index.php");
+		loginpage();
+		search_hotel_page();
+		select_hotel_page();
+		book_hotel_page();
+        logoutpage();
+		
+			
 
-	driver.findElement(By.xpath("//input[@id='username']")).sendKeys("rajfernanto");
-	driver.findElement(By.xpath("//input[@id='password']")).sendKeys("TC02CG");
-	driver.findElement(By.xpath("//input[@id='login']")).click();
+			
+			
+			
+			
+			
+			
+			
+			
 
-	//location
-	WebElement loc = driver.findElement(By.xpath("//select[@id='location']"));
-	Select location= new Select(loc);
-	List<WebElement> options = location.getOptions();	
-	int size = options.size();
-	System.out.println(size);
-	location.selectByIndex(2);
-
-
-	//hotels
-	WebElement findElement1 = driver.findElement(By.xpath("//select[@id='hotels']"));
-	Select hotel= new Select(findElement1);
-	//hotel.selectByIndex(2);
-	hotel.selectByVisibleText("Hotel Creek");
-
-	//room type
-
-	WebElement findElement2 = driver.findElement(By.xpath("//select[@id='room_type']"));
-	Select room_type= new Select(findElement2);
-	room_type.selectByIndex(2);
-
-	//Number of Rooms
-
-	WebElement findElement3 = driver.findElement(By.xpath("//select[@id='room_nos']"));
-	Select NumberofRooms= new Select(findElement3);
-	NumberofRooms.selectByIndex(6);
-
-	//check in date
-
-	driver.findElement(By.xpath("//input[@id='datepick_in']")).sendKeys("17/12/2023");
-
-
-	// checkout date
-	driver.findElement(By.xpath("//input[@id='datepick_out']")).sendKeys("18/12/2023");
-
-	//adult
-
-	WebElement findElement4 = driver.findElement(By.xpath("//select[@id='adult_room']"));
-	Select adult= new Select(findElement4);
-	adult.selectByIndex(2);
-
-
-	//children
-
-	WebElement findElement5 = driver.findElement(By.xpath("//select[@id='child_room']"));
-	Select child= new Select(findElement5);
-	child.selectByVisibleText("2 - Two");
-
-	//submit
-	driver.findElement(By.xpath("//input[@id='Submit']")).click();
-
-
-
-	//NextBytes page
-	driver.findElement(By.xpath("//input[@id='radiobutton_0']")).click();
-
-	driver.findElement(By.xpath("//input[@id='continue']")).click();
-
-
-
-
-	//NextBytes page _3
-
-
-	driver.findElement(By.xpath("//input[@id='first_name']")).sendKeys("raji");
-	Thread.sleep(1000);
-	driver.findElement(By.xpath("//input[@id='last_name']")).sendKeys("anjappan");
-
-	driver.findElement(By.xpath("//textarea[@id='address']")).sendKeys("4/262 meenavar colony middle street poompuhar");
-	driver.findElement(By.xpath("//input[@id='cc_num']")).sendKeys("6754879034275876");
-
-
-	WebElement card_type = driver.findElement(By.xpath("//select[@id='cc_type']"));
-	Select card=new Select(card_type);
-	card.selectByIndex(2);
-
-
-	WebElement month = driver.findElement(By.xpath("//select[@id='cc_exp_month']"));
-	Select monthSelect=new Select(month);
-	monthSelect.selectByVisibleText("June");
-
-
-	WebElement date = driver.findElement(By.xpath("//select[@id='cc_exp_year']")); 
-
-	Select yearSelect=new Select(date);
-	yearSelect.selectByValue("2025");
-
-	driver.findElement(By.xpath("//input[@id='cc_cvv']")).sendKeys("6789");
-
-
-	driver.findElement(By.xpath("//input[@id='book_now']")).click();
-
-	Thread.sleep(10000);
-	driver.findElement(By.xpath("//input[@id='logout']")).click();
-
-	driver.findElement(By.xpath("//a[text()='Click here to login again']")).click();
+		
 
 	}
 

@@ -78,43 +78,41 @@ public class DataDriven {
 		}
 		w.close();
 	  
-	  
 	
-	  
 }
   
 //    WRITE DATA IN EXCEL 
   
   
   
-  private static void writedata() throws Exception {
-	  
+  private static void demo() throws Exception {
 	   File f = new File("E:\\RAJ-PROCESS JOB\\Book1.xlsx");
 
        FileInputStream fis = new FileInputStream(f);
        Workbook wb = new XSSFWorkbook(fis);
+       wb.createSheet("WriteData-10");
 
-       // Creating a new sheet named "WriteData"
-       Sheet sheet = wb.createSheet("WriteData-2");
-
-       String[] dd = {"name", "age", "location"};
-       String[] nameStrings = {"raji", "ranjith", "rajkumar"};
+       String[] dd = {"firstname", "age", "location"};
+       String[] firstname = {"raji", "ranjith", "rajkumar"};
+       String[] lastname = {"anjappan", "anjappan", "anjappan"};
        int[] ageStrings = {25, 28, 32};
        String[] locStrings = {"chennai", "singapore", "poompuhar"};
-
+       
        // Writing header row
-       Row headerRow = sheet.createRow(0);
+       
        for (int i = 0; i < dd.length; i++) {
-           headerRow.createCell(i).setCellValue(dd[i]);
+    	   wb.getSheet("WriteData-10").createRow(0).createCell(i).setCellValue(dd[i]);
+    	
        }
-
+       for (int j = 1; j < firstname.length; j++) {
+	          
+    	   wb.getSheet("WriteData-10").createRow(j).createCell(0).setCellValue(firstname[j]);
+    	   wb.getSheet("WriteData-10").createRow(j).createCell(1).setCellValue(lastname[j]);
+    	   wb.getSheet("WriteData-10").createRow(j).createCell(1).setCellValue(ageStrings[j]);
+    	   wb.getSheet("WriteData-10").createRow(j).createCell(2).setCellValue(locStrings[j]);
+       }
        // Writing data rows
-       for (int j = 0; j < nameStrings.length; j++) {
-           Row dataRow = sheet.createRow(j + 1);
-           dataRow.createCell(0).setCellValue(nameStrings[j]);
-           dataRow.createCell(1).setCellValue(ageStrings[j]);
-           dataRow.createCell(2).setCellValue(locStrings[j]);
-       }
+     
 
        // Writing the changes to the file
        FileOutputStream fos = new FileOutputStream(f);
@@ -124,7 +122,61 @@ public class DataDriven {
        fos.close();
        wb.close();
 
-       System.out.println("Write successfully");
+       System.out.println("Write successfully method-1");
+
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  private static void writedata() throws Exception {
+	   File file = new File("C:\\Users\\Welcome\\Desktop\\Book2.xlsx");
+
+       try (FileInputStream fis = new FileInputStream(file);
+            Workbook wb = new XSSFWorkbook(fis)) {
+
+           // Check if sheet already exists, if not, create it
+           Sheet sheet = wb.getSheet("WriteData-1");
+           if (sheet == null) {
+               sheet = wb.createSheet("WriteData-1");
+           }
+
+           String[] dd = {"name", "age", "location"};
+           String[] nameStrings = {"raji", "ranjith", "rajkumar", "ramu"};
+           int[] ageStrings = {25, 28, 32, 35};
+           String[] locStrings = {"chennai", "singapore", "poompuhar", "poompuhar"};
+
+           // Writing header row
+           Row h_row = sheet.createRow(0);
+           for (int i = 0; i < dd.length; i++) {
+               h_row.createCell(i).setCellValue(dd[i]);
+           }
+
+           // Writing data rows
+           for (int j = 0; j < nameStrings.length; j++) {
+               Row row = sheet.createRow(j + 1);
+               row.createCell(0).setCellValue(nameStrings[j]);
+               row.createCell(1).setCellValue(ageStrings[j]);
+               row.createCell(2).setCellValue(locStrings[j]);
+           }
+
+           // Writing the changes to the file
+           try (FileOutputStream fos = new FileOutputStream(file)) {
+               wb.write(fos);
+               fos.close();
+               wb.close();
+               System.out.println("Write successfully method-2");
+           }
+
+         
+
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
 
 	}
 	
@@ -132,18 +184,48 @@ public class DataDriven {
 
 
   
- 
+  private static void singleWriteData() throws IOException {
+		
+		File f = new File("E:\\RAJ-PROCESS JOB\\Book1.xlsx");
+		
+		FileInputStream fis = new FileInputStream(f);
+		
+		Workbook wb = new XSSFWorkbook(fis);
+		
+//		wb.createSheet("WriteData-5");
+		
+		wb.getSheet("WriteData-5").getRow(0).createCell(1).setCellValue("THENDRAL");
+	
+		wb.getSheet("WriteData-5").createRow(1).createCell(0).setCellValue("PASSWORD");
+		
+		wb.getSheet("WriteData-5").getRow(1).createCell(1).setCellValue("thendo");
+		
+		FileOutputStream fos = new FileOutputStream(f);
+		
+		wb.write(fos);
+		
+		
+		System.out.println("Write successfully");
+		
+		wb.close();
+
+	}
+
 	
 	
 	
 	
 public static void main(String[] args) throws Exception {
+//	
+//	getsheetdata();
+//
+//	
+//	excelalldataget();
+////	demo();
+//	singleWriteData();
 	
-	getsheetdata();
-	
-	excelalldataget();
-
 writedata();
+
 	
 }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-02-19T14:23:45 IST" name="Default suite" finished-at="2024-02-19T14:23:55 IST" duration-ms="10387">
+    <groups>
+    </groups>
+    <test started-at="2024-02-19T14:23:45 IST" name="Default test" finished-at="2024-02-19T14:23:55 IST" duration-ms="10387">
+      <class name="com.dynamic_table.Table_1">
+        <test-method signature="findname()[pri:0, instance:com.dynamic_table.Table_1@543295b0]" started-at="2024-02-19T14:23:45 IST" name="findname" finished-at="2024-02-19T14:23:55 IST" duration-ms="9819" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- findname -->
+      </class> <!-- com.dynamic_table.Table_1 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

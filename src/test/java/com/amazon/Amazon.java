@@ -31,6 +31,7 @@ public class Amazon {
 		String text2 = findElement.getText();
 		System.out.println(text2);
 		
+		
 		Select location= new Select(findElement);
 		System.out.println(location);
 		location.selectByVisibleText("Books");
@@ -83,7 +84,6 @@ public class Amazon {
 			System.out.println(book_name);
 			
 			if(substring.equals(book_name)) {
-			
 				TakesScreenshot screen=(TakesScreenshot)driver;
 			    File decFile=screen.getScreenshotAs(OutputType.FILE);
 			    File des=new File("C:\\Users\\Welcome\\eclipse-workspace\\Selenum_demo\\screenshot\\amazon_2.png");
